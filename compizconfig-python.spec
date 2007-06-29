@@ -40,6 +40,8 @@ Python bindings for libcompizconfig
 Summary: Library files for %{name}
 Group: System/X11
 Provides: %{name} = %{version}-%{release}
+Obsoletes: beryl-settings-bindings
+Obsoletes: %mklibname beryl-settings-bindings
 
 %description -n %libname
 Python Bindings for Beryl Settings
@@ -52,6 +54,7 @@ Group: Development/Other
 Requires: %{libname} = %{version}-%{release}
 Requires: libcompizconfig-devel
 Provides: %{name}-devel = %{version}-%{release}
+Obsoletes: %mklibname -d beryl-settings-bindings
 
 %description -n %{libname_devel}
 Development files relating to the Python Bindings for Beryl Settings
