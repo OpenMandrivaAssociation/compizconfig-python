@@ -2,7 +2,7 @@
 %define name compizconfig-python
 %define version 0.0.1
 %define rel 2
-%define git 20070707
+%define git 20070712
 
 %define libname %mklibname %name
 %define libname_devel %mklibname -d %name
