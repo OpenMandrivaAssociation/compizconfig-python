@@ -1,8 +1,8 @@
 %define shortname compizconfig
 %define name compizconfig-python
-%define version 0.5.2
+%define version 0.6.0
 %define rel 1
-%define git 0
+%define git 20071018
 
 %define libname %mklibname %name
 %define libname_devel %mklibname -d %name
