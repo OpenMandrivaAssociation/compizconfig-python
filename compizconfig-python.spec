@@ -1,6 +1,6 @@
 %define shortname compizconfig
 %define name compizconfig-python
-%define version 0.8.2
+%define version 0.8.4
 %define rel 1
 %define git 0
 
@@ -26,8 +26,8 @@ URL: http://www.compiz-fusion.org/
 Source: http://releases.compiz-fusion.org/%{version}/%{srcname}
 License: GPL
 BuildRoot: %{_tmppath}/%{name}-root
-BuildRequires: compiz-devel
-BuildRequires: libcompizconfig-devel
+BuildRequires: compiz-devel >= %{version}
+BuildRequires: libcompizconfig-devel >= %{version}
 BuildRequires: pygtk2.0-devel
 BuildRequires: python-pyrex
 
