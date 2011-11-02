@@ -3,7 +3,6 @@
 %define git 0
 
 %define libname %mklibname %name
-#define develname %mklibname -d %name
 
 %if  %{git}
 %define srcname %{name}-%{git}.tar.xz
@@ -46,18 +45,6 @@ Python Bindings for Beryl Settings
 
 #----------------------------------------------------------------------------
 
-#package -n %{develname}
-#ummary: Development files from %{name}
-#roup: Development/Other
-#equires: %{libname} = %{version}-%{release}
-#rovides: %{name}-devel = %{version}-%{release}
-#bsoletes: %mklibname -d beryl-settings-bindings
-
-#description -n %{develname}
-#evelopment files relating to the Python Bindings for Beryl Settings
-
-#----------------------------------------------------------------------------
-
 %prep
 %setup -qn %{distname}
 
@@ -82,8 +69,5 @@ rm -rf %{buildroot}
 
 %files -n %{libname}
 %{py_platsitedir}/%{shortname}.so
-
-#files -n %{develname}
-#{py_platsitedir}/%{shortname}.a
-#{_libdir}/pkgconfig/%{name}.pc
+%{py_platsitedir}/*.egg-info
 
