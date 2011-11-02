@@ -1,35 +1,33 @@
-%define shortname compizconfig
-%define name compizconfig-python
-%define version 0.8.4
-%define rel 3
+%define name %{shortname}-python
+%define rel 1
 %define git 0
 
 %define libname %mklibname %name
-%define libname_devel %mklibname -d %name
+#define develname %mklibname -d %name
 
 %if  %{git}
-%define srcname %{name}-%{git}.tar.lzma
+%define srcname %{name}-%{git}.tar.xz
 %define distname %{name}
-%define release %mkrel 0.%{git}.%{rel}
+%define release 0.%{git}.%{rel}
 %else
 %define srcname %{name}-%{version}.tar.bz2
 %define distname %{name}-%{version}
-%define release %mkrel %{rel}
+%define release %{rel}
 %endif
 
-Name: %name
-Version: %version
+Name: %{shortname}-python
+Version: 0.9.5.92
 Release: %release
 Summary: Python bindings for libcompizconfig
 Group: System/X11
-URL: http://www.compiz-fusion.org/
+URL: http://www.compiz.org/
 Source: http://releases.compiz-fusion.org/%{version}/%{srcname}
 License: GPL
-BuildRoot: %{_tmppath}/%{name}-root
+
 BuildRequires: compiz-devel >= %{version}
 BuildRequires: libcompizconfig-devel >= %{version}
-BuildRequires: pygtk2.0-devel
-BuildRequires: python-pyrex
+BuildRequires:  python-cython
+BuildRequires:  python-devel
 
 %description
 Python bindings for libcompizconfig
@@ -43,49 +41,49 @@ Provides: %{name} = %{version}-%{release}
 Obsoletes: beryl-settings-bindings
 Obsoletes: %mklibname beryl-settings-bindings
 
-%description -n %libname
+%description -n %{libname}
 Python Bindings for Beryl Settings
 
 #----------------------------------------------------------------------------
 
-%package -n %{libname_devel}
-Summary: Development files from %{name}
-Group: Development/Other
-Requires: %{libname} = %{version}-%{release}
-Requires: libcompizconfig-devel
-Provides: %{name}-devel = %{version}-%{release}
-Obsoletes: %mklibname -d beryl-settings-bindings
+#package -n %{develname}
+#ummary: Development files from %{name}
+#roup: Development/Other
+#equires: %{libname} = %{version}-%{release}
+#rovides: %{name}-devel = %{version}-%{release}
+#bsoletes: %mklibname -d beryl-settings-bindings
 
-%description -n %{libname_devel}
-Development files relating to the Python Bindings for Beryl Settings
+#description -n %{develname}
+#evelopment files relating to the Python Bindings for Beryl Settings
 
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q -n %{distname}
+%setup -qn %{distname}
 
 %build
 %if %{git}
   # This is a GIT snapshot, so we need to generate makefiles.
   sh autogen.sh -V
 %endif
-%configure2_5x
-%make
+
+# cython'ing fails w/o conversion
+sed -i 's|__new__|__cinit__|g' src/compizconfig.pyx
+python setup.py build
 
 %install
 rm -rf %{buildroot}
-%makeinstall_std
-find %{buildroot} -name *.la -exec rm -f {} \;
+python setup.py install -O2 --skip-build --root %{buildroot}
 
 %clean
-rm -rf %buildroot
+rm -rf %{buildroot}
 
 #----------------------------------------------------------------------------
 
 %files -n %{libname}
 %{py_platsitedir}/%{shortname}.so
 
-%files -n %{libname_devel}
-%{py_platsitedir}/%{shortname}.a
-%{_libdir}/pkgconfig/%{name}.pc
+#files -n %{develname}
+#{py_platsitedir}/%{shortname}.a
+#{_libdir}/pkgconfig/%{name}.pc
 
