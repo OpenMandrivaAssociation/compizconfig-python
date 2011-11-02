@@ -1,4 +1,4 @@
-%define name %{shortname}-python
+%define shortname compizconfig
 %define rel 1
 %define git 0
 
