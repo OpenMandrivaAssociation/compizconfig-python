@@ -1,5 +1,5 @@
 %define shortname compizconfig
-%define rel 1
+%define rel 2
 %define git 0
 
 %define libname %mklibname %name
@@ -39,6 +39,7 @@ Group: System/X11
 Provides: %{name} = %{version}-%{release}
 Obsoletes: beryl-settings-bindings
 Obsoletes: %mklibname beryl-settings-bindings
+Obsoletes: %{mklibname %{name} -d}
 
 %description -n %{libname}
 Python Bindings for Beryl Settings
