@@ -26,6 +26,11 @@ URL: https://www.compiz-fusion.org/
 Source: http://releases.compiz-fusion.org/%{version}/%{srcname}
 License: GPL
 BuildRoot: %{_tmppath}/%{name}-root
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires: compiz-devel >= %{version}
 BuildRequires: libcompizconfig-devel >= %{version}
 BuildRequires: pygtk2.0-devel
